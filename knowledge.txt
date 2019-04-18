@@ -1,0 +1,4 @@
+Author:  Trent Sanford
+Last Updated on: 11/21/90
+Description of function:  This function is used for reading and looking for descrtips of other functions
+
