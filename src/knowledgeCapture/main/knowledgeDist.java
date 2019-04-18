@@ -1,5 +1,6 @@
 package knowledgeCapture.main;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -17,26 +18,19 @@ import com.itextpdf.text.pdf.PdfWriter;
 import knowledgeCapture.model.knowledge;
 
 public class knowledgeDist {
-	
 	public static void main(String[] args) {
-		knowledge test1 = new knowledge();
-		test1.setAuthor("Trent: trenton.sanford@infosys.com");
-		test1.setLastUpdated("04-17-2019");
-		test1.setDescription("This is just a test. Your description of the method would be here");
-		knowledge test2 = new knowledge();
-		test2.setAuthor("Trent: trenton.sanford@infosys.com");
-		test2.setLastUpdated("04-17-2019");
-		test2.setDescription("This is just another test. Your descricption of the method would be here");
-		List<knowledge> test = new ArrayList<knowledge>();
-		test.add(test1);
-		test.add(test2);
-		write(test);
+		ArrayList<String> parsedBlock = new ArrayList<String>();
+		parsedBlock.add("Author: Trent Sanford; LastUpdated: 02/02/02; Description: This function is used for reading and looking for description of other functions;");
+		parsedBlock.add("Author: Razibul Ahmed; LastUpdated: 02/02/02; Description: Made to take in a txt file to parse information on a specfic function");
+		List<knowledge> knowledgeList = read(parsedBlock);
+		write(knowledgeList);
 	}
 	
 	public static void write(List<knowledge> knowledgeList) {
 
 		Document document = new Document();
 		try {
+
 			PdfWriter.getInstance(document, new FileOutputStream("knowledge.pdf"));
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -70,10 +64,36 @@ public class knowledgeDist {
 			// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		document.close();
 		
 	}
- 
+	 public static List<knowledge> read(ArrayList<String> parsedBlock) {
+		 		List<knowledge> knowledgeItemList = new ArrayList<knowledge>();
+		 	for (String knowledgeBlock: parsedBlock) { // For each Block we get 
+		 		knowledge newKnowledge = new knowledge();
+		 		 String[] propertyString = knowledgeBlock.split(";"); // Split the String at ; to break each line
+		 		for (String property : propertyString) {
+		 			String[] propertyValue = property.split(":"); //Split the string at the colon to get the property and value;
+		 			switch(propertyValue[0].trim()) { // Set current lines property and value
+		 			case "Author": 
+		 				newKnowledge.setAuthor(propertyValue[1]);
+		 				break;
+		 			case "LastUpdated":
+		 				newKnowledge.setLastUpdated(propertyValue[1]);
+		 				break;
+		 			case "Description":	
+		 				newKnowledge.setDescription(propertyValue[1]);
+		 				break;
+		 			default:
+		 				break;
+		 			}
+		 				
+		 		}
+		 		knowledgeItemList.add(newKnowledge);
+		 	}
+			return knowledgeItemList;
+	 }
+
 }
+
