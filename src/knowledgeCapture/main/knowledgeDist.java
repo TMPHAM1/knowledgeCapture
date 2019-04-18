@@ -68,6 +68,12 @@ public class knowledgeDist {
 		document.close();
 		
 	}
+	/*	<kd>
+		Author: Tien Pham;
+		LastUpdated: 4/18/2018;
+		Description: "This function is made to break the properties out to get the correct values for each properties";
+
+</kd> */
 	 public static List<knowledge> read(ArrayList<String> parsedBlock) {
 		 		List<knowledge> knowledgeItemList = new ArrayList<knowledge>();
 		 	for (String knowledgeBlock: parsedBlock) { // For each Block we get 
