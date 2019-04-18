@@ -1,9 +1,11 @@
 package knowledgeCapture.model;
 
 public class knowledge {
+	
 	private String author;
 	private String lastUpdated;
 	private String description;
+	
 	public String getAuthor() {
 		return author;
 	}

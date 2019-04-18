@@ -1,12 +1,18 @@
 package knowledgeCapture.main;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import knowledgeCapture.model.knowledge;
 
@@ -28,21 +34,45 @@ public class knowledgeDist {
 	}
 	
 	public static void write(List<knowledge> knowledgeList) {
-		Path file = Paths.get("knowledge.txt");
-		List<String> knowledgeStringList = new ArrayList<String>();
-		for(int i = 0; i<knowledgeList.size(); i++){
-			String author = knowledgeList.get(i).getAuthor();
-			String date = knowledgeList.get(i).getLastUpdated();
-			String description = knowledgeList.get(i).getDescription();
-			String completed = "Author: "+ author+"\n"+"Last Updated on:" + date + "\n" + "Description of function: " + description+"\n";
-			knowledgeStringList.add(completed);
-		}
+
+		Document document = new Document();
 		try {
-			Files.write(file, knowledgeStringList, Charset.forName("UTF-8"));
-		} catch (IOException e) {
+			PdfWriter.getInstance(document, new FileOutputStream("knowledge.pdf"));
+		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+		} catch (DocumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+
+  
+		document.open();
+	
+		Font font = FontFactory.getFont(FontFactory.COURIER, 11, BaseColor.BLACK);
+		for(Integer i = 0; i<knowledgeList.size(); i++){
+			
+			Paragraph author = new Paragraph("Author: "+knowledgeList.get(i).getAuthor(), font);
+			Paragraph date = new Paragraph("Last Updated On: "+ knowledgeList.get(i).getLastUpdated(), font);
+			Paragraph description = new Paragraph("Description: "+knowledgeList.get(i).getDescription(), font);
+			Integer methodNum = i+1;
+			Chunk number = new Chunk(methodNum.toString()+":",font);
+			try {
+				document.add(number);
+				document.add(new Chunk());
+				document.add(author);
+				
+				document.add(date);
+				
+				document.add(description);
+				document.add(Chunk.NEWLINE);
+			} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		document.close();
 		
 	}
  
