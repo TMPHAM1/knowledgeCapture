@@ -1,8 +1,0 @@
-Author:  Trent Sanford
-Last Updated on: 02/02/02
-Description of function:  This function is used for reading and looking for description of other functions
-
-Author:  Razibul Ahmed
-Last Updated on: 02/02/02
-Description of function:  Made to take in a txt file to parse information on a specfic function
-

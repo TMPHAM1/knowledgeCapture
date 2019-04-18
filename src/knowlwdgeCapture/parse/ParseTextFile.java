@@ -24,30 +24,20 @@ public class ParseTextFile {
 		        boolean tokenFound = false;
 		    	String blockValue= "";
 		        while (scanner.hasNextLine()) {
-		        	
-//		        	HashMap<String,String> block = new HashMap<>();
-		        	
-//		        	lineNumber++;
-		        	
+		        			        	
 		            String line = scanner.nextLine().trim();
 
-		          
 		            if (line.contains(delimTag)) 
 		            {
 		                tokenFound = true;
 		                blockValue ="";
-//		                block.put("lineStart", lineNumber.toString());
-		                
 		                
 		            } else if (line.contains(breakTag)) {
 		                tokenFound = false;
 		                blockList.add(blockValue);
-//		                block.put("block", blockValue);
-//		                blockList.add(block)
 		              
 		            }
-//		            System.out.println(tokenFound);
-//		            System.out.println(!line.contains(delimTag));
+
 		            if ((tokenFound) && (!line.contains(delimTag))) {
 		            	blockValue = blockValue + line;
 		            }
@@ -58,7 +48,6 @@ public class ParseTextFile {
 	            System.out.println(
 	                    "Unable to open file");                
 	            }
-	           System.out.println(blockList.get(1));
 			return blockList;
 		} 
 	
