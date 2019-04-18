@@ -14,19 +14,9 @@ import knowledgeCapture.model.knowledge;
 
 public class knowledgeDist {
 	public static void main(String[] args) {
-//		knowledge test1 = new knowledge();
-//		test1.setAuthor("Trent: trenton.sanford@infosys.com");
-//		test1.setLastUpdated("04-17-2019");
-//		test1.setDescription("This is just a test. Your description of the method would be here");
-//		knowledge test2 = new knowledge();
-//		test2.setAuthor("Trent: trenton.sanford@infosys.com");
-//		test2.setLastUpdated("04-17-2019");
-//		test2.setDescription("This is just another test. Your descricption of the method would be here");
-//		List<knowledge> test = new ArrayList<knowledge>();
-//		test.add(test1);
-//		test.add(test2);
 		ArrayList<String> parsedBlock = new ArrayList<String>();
-		parsedBlock.add("Author: Trent Sanford; LastUpdated: 11/21/90; Description: This function is used for reading and looking for descrtips of other functions;");
+		parsedBlock.add("Author: Trent Sanford; LastUpdated: 02/02/02; Description: This function is used for reading and looking for description of other functions;");
+		parsedBlock.add("Author: Razibul Ahmed; LastUpdated: 02/02/02; Description: Made to take in a txt file to parse information on a specfic function");
 		List<knowledge> knowledgeList = read(parsedBlock);
 		write(knowledgeList);
 	}
@@ -44,7 +34,6 @@ public class knowledgeDist {
 		try {
 			Files.write(file, knowledgeStringList, Charset.forName("UTF-8"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -72,7 +61,6 @@ public class knowledgeDist {
 		 				
 		 		}
 		 		knowledgeItemList.add(newKnowledge);
-		 		
 		 	}
 			return knowledgeItemList;
 	 }
