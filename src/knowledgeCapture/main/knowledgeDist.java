@@ -25,7 +25,14 @@ public class knowledgeDist {
 		List<knowledge> knowledgeList = read(parsedBlock);
 		write(knowledgeList);
 	}
-	
+	/*
+	 <kd>
+	 Author: Trent Sanford;
+	 LastUpdated: 4/18/2019;
+	 Description: This function will take in a list of knowledge models and create a PDF with a list
+	 			  of all Knowledge Distribution blocks formatted correctly.;
+	 </kd>
+	 */
 	public static void write(List<knowledge> knowledgeList) {
 
 		Document document = new Document();
