@@ -16,14 +16,19 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import knowledgeCapture.model.knowledge;
+import knowlwdgeCapture.parse.ParseTextFile;
 
 public class knowledgeDist {
 	public static void main(String[] args) {
 		ArrayList<String> parsedBlock = new ArrayList<String>();
-		parsedBlock.add("Author: Trent Sanford; LastUpdated: 02/02/02; Description: This function is used for reading and looking for description of other functions;");
-		parsedBlock.add("Author: Razibul Ahmed; LastUpdated: 02/02/02; Description: Made to take in a txt file to parse information on a specfic function");
-		List<knowledge> knowledgeList = read(parsedBlock);
-		write(knowledgeList);
+		try {
+			parsedBlock = ParseTextFile.parseText("/Users/hanmikim/git/knowledgeCapture/src/knowledgeCapture/main/knowledgeDist.java");
+			List<knowledge> knowledgeList = read(parsedBlock);
+			write(knowledgeList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/*
 	 <kd>
@@ -31,6 +36,9 @@ public class knowledgeDist {
 	 LastUpdated: 4/18/2019;
 	 Description: This function will take in a list of knowledge models and create a PDF with a list
 	 			  of all Knowledge Distribution blocks formatted correctly.;
+	 FunctionName: write();
+	 Input: List<knowledge> knowledgeList;
+	 Output: No outputs;
 	 </kd>
 	 */
 	public static void write(List<knowledge> knowledgeList) {
@@ -56,6 +64,9 @@ public class knowledgeDist {
 			Paragraph author = new Paragraph("Author: "+knowledgeList.get(i).getAuthor(), font);
 			Paragraph date = new Paragraph("Last Updated On: "+ knowledgeList.get(i).getLastUpdated(), font);
 			Paragraph description = new Paragraph("Description: "+knowledgeList.get(i).getDescription(), font);
+			Paragraph functionName = new Paragraph("Function Name: "+knowledgeList.get(i).getFunctionName(), font);
+			Paragraph functionInputs = new Paragraph("Input(s): "+knowledgeList.get(i).getInput(), font);
+			Paragraph functionOutputs = new Paragraph("Output(s): "+knowledgeList.get(i).getOutput(), font);
 			Integer methodNum = i+1;
 			Chunk number = new Chunk(methodNum.toString()+":",font);
 			try {
@@ -66,6 +77,10 @@ public class knowledgeDist {
 				document.add(date);
 				
 				document.add(description);
+				document.add(functionName);
+				document.add(functionInputs);
+				document.add(functionOutputs);
+				
 				document.add(Chunk.NEWLINE);
 			} catch (DocumentException e) {
 			// TODO Auto-generated catch block
@@ -78,7 +93,10 @@ public class knowledgeDist {
 	/*	<kd>
 		Author: Tien Pham;
 		LastUpdated: 4/18/2018;
-		Description: "This function is made to break the properties out to get the correct values for each properties";
+		Description: This function is made to break the properties out to get the correct values for each properties;
+		FunctionName: read();
+		Input: ArrayList<String>;
+		Output: List<knowledge>;
 
 </kd> */
 	 public static List<knowledge> read(ArrayList<String> parsedBlock) {
@@ -98,6 +116,15 @@ public class knowledgeDist {
 		 			case "Description":	
 		 				newKnowledge.setDescription(propertyValue[1]);
 		 				break;
+		 			case "FunctionName":	
+		 				newKnowledge.setFunctionName(propertyValue[1]);
+		 				break;
+		 			case "Input":	
+		 				newKnowledge.setInput(propertyValue[1]);
+		 				break;
+		 			case "Output":	
+		 				newKnowledge.setOutput(propertyValue[1]);
+		 				break;
 		 			default:
 		 				break;
 		 			}
@@ -107,6 +134,14 @@ public class knowledgeDist {
 		 	}
 			return knowledgeItemList;
 	 }
+		/*	<kd>
+		Author:Razibul Ahmed;
+		LastUpdated: 4/18/2018;
+		Description: This function filters out the knowledge block based on tags;
+		FunctionName: parseText();
+		Input: String filePath;
+		Output: ArrayList<String>;
+		</kd> */
 
 }
 
